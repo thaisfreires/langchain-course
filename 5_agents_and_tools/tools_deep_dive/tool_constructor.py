@@ -1,12 +1,16 @@
 # Docs: https://python.langchain.com/v0.1/docs/modules/tools/custom_tools/
 
 # Import necessary libraries
+from dotenv import load_dotenv
 from langchain import hub
 from langchain.agents import AgentExecutor, create_tool_calling_agent
-from langchain.pydantic_v1 import BaseModel, Field
+from pydantic import BaseModel, Field
 from langchain_core.tools import StructuredTool, Tool
-from langchain_openai import ChatOpenAI
+from langchain_groq import ChatGroq
+from langchain.tools import BaseTool, StructuredTool, Tool
 
+# Load environment variables from .env
+load_dotenv()
 
 # Functions for the tools
 def greet_user(name: str) -> str:
@@ -51,12 +55,11 @@ tools = [
         func=concatenate_strings,  # Function to execute
         name="ConcatenateStrings",  # Name of the tool
         description="Concatenates two strings.",  # Description of the tool
-        args_schema=ConcatenateStringsArgs,  # Schema defining the tool's input arguments
     ),
 ]
 
 # Initialize a ChatOpenAI model
-llm = ChatOpenAI(model="gpt-4o")
+llm = ChatGroq(model="mixtral-8x7b-32768") # type: ignore
 
 # Pull the prompt template from the hub
 prompt = hub.pull("hwchase17/openai-tools-agent")

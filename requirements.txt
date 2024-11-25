@@ -1,0 +1,16 @@
+langchain_openai
+python-dotenv
+langchain-groq
+langchain_core
+langchain-google-genai
+langchain-anthropic
+langchain_google_firestore
+langchain-community
+chromadb
+tiktoken
+langchain-chroma
+langchain_huggingface
+bs4
+firecrawl-py
+wikipedia
+tavily-python

@@ -2,10 +2,14 @@
 
 # Import necessary libraries
 from langchain import hub
+from dotenv import load_dotenv
 from langchain.agents import AgentExecutor, create_tool_calling_agent
 from langchain.pydantic_v1 import BaseModel, Field
 from langchain.tools import tool
-from langchain_openai import ChatOpenAI
+from langchain_groq import ChatGroq
+
+# Load environment variables from .env
+load_dotenv()
 
 
 # Simple Tool with one parameter without args_schema
@@ -56,7 +60,7 @@ tools = [
 ]
 
 # Initialize a ChatOpenAI model
-llm = ChatOpenAI(model="gpt-4o")
+llm = ChatGroq(model="mixtral-8x7b-32768") # type: ignore
 
 # Pull the prompt template from the hub
 prompt = hub.pull("hwchase17/openai-tools-agent")

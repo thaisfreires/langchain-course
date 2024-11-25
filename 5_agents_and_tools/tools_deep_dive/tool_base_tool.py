@@ -7,9 +7,10 @@ from typing import Type
 from dotenv import load_dotenv
 from langchain import hub
 from langchain.agents import AgentExecutor, create_tool_calling_agent
-from langchain.pydantic_v1 import BaseModel, Field
+from pydantic import BaseModel, Field
 from langchain_core.tools import BaseTool
-from langchain_openai import ChatOpenAI
+from langchain_groq import ChatGroq
+from tavily import TavilyClient
 
 
 load_dotenv()
@@ -27,11 +28,9 @@ class MultiplyNumbersArgs(BaseModel):
 
 
 # Custom tool with only custom input
-
-
 class SimpleSearchTool(BaseTool):
-    name = "simple_search"
-    description = "useful for when you need to answer questions about current events"
+    name: str ="simple_search"
+    description: str = "useful for when you need to answer questions about current events"
     args_schema: Type[BaseModel] = SimpleSearchInput
 
     def _run(
@@ -49,8 +48,8 @@ class SimpleSearchTool(BaseTool):
 
 # Custom tool with custom input and output
 class MultiplyNumbersTool(BaseTool):
-    name = "multiply_numbers"
-    description = "useful for multiplying two numbers"
+    name: str = "multiply_numbers"
+    description: str = "useful for multiplying two numbers"
     args_schema: Type[BaseModel] = MultiplyNumbersArgs
 
     def _run(
@@ -69,8 +68,8 @@ tools = [
     MultiplyNumbersTool(),
 ]
 
-# Initialize a ChatOpenAI model
-llm = ChatOpenAI(model="gpt-4o")
+# Initialize a Chat model
+llm = ChatGroq(model="mixtral-8x7b-32768") # type: ignore
 
 # Pull the prompt template from the hub
 prompt = hub.pull("hwchase17/openai-tools-agent")

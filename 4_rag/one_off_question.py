@@ -1,21 +1,20 @@
 import os
 
 from dotenv import load_dotenv
-from langchain_community.vectorstores import Chroma
+from langchain_chroma import Chroma
 from langchain_core.messages import HumanMessage, SystemMessage
-from langchain_openai import ChatOpenAI, OpenAIEmbeddings
+from langchain_groq import ChatGroq
+from langchain_huggingface import HuggingFaceEmbeddings
 
 # Load environment variables from .env
 load_dotenv()
 
 # Define the persistent directory
 current_dir = os.path.dirname(os.path.abspath(__file__))
-persistent_directory = os.path.join(
-    current_dir, "db", "chroma_db_with_metadata")
+persistent_directory = os.path.join(current_dir, "db", "chroma_db_with_metadata")
 
 # Define the embedding model
-embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
-
+embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2", model_kwargs={'device':'cpu'})
 # Load the existing vector store with the embedding function
 db = Chroma(persist_directory=persistent_directory,
             embedding_function=embeddings)
@@ -45,7 +44,7 @@ combined_input = (
 )
 
 # Create a ChatOpenAI model
-model = ChatOpenAI(model="gpt-4o")
+llm = ChatGroq(model="mixtral-8x7b-32768")
 
 # Define the messages for the model
 messages = [
@@ -54,7 +53,7 @@ messages = [
 ]
 
 # Invoke the model with the combined input
-result = model.invoke(messages)
+result = llm.invoke(messages)
 
 # Display the full result and content only
 print("\n--- Generated Response ---")

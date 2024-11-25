@@ -1,12 +1,12 @@
 from dotenv import load_dotenv
-from langchain_openai import ChatOpenAI
-from langchain.schema import AIMessage, HumanMessage, SystemMessage
+from langchain_groq import ChatGroq
+from langchain_core.messages import AIMessage, HumanMessage, SystemMessage
 
 # Load environment variables from .env
 load_dotenv()
 
-# Create a ChatOpenAI model
-model = ChatOpenAI(model="gpt-4o")
+# Create a Groq model
+llm = ChatGroq(model="mixtral-8x7b-32768")
 
 
 chat_history = []  # Use a list to store messages
@@ -23,8 +23,8 @@ while True:
     chat_history.append(HumanMessage(content=query))  # Add user message
 
     # Get AI response using history
-    result = model.invoke(chat_history)
-    response = result.content
+    ai_msg = llm.invoke(chat_history)
+    response = ai_msg.content
     chat_history.append(AIMessage(content=response))  # Add AI message
 
     print(f"AI: {response}")
