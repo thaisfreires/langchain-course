@@ -61,7 +61,7 @@ pip install -r requirements.txt
 ```
 5. Run the code like the example:
 ```bash
-cd chat_models
+cd 1_chat_models
  python chat_model_alternatives.py
 ```
 
