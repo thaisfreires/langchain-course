@@ -2,12 +2,13 @@
 
 # LangChain Course 
 
+
 This project has a set of code examples of basic concepts of AI using the LangChain framework. I followed a course from YouTube, and the code examples provided by the instructor were combined with my own modifications and improvements. These examples aim to showcase various aspects of the LangChain framework, demonstrating its capabilities in building AI-driven applications. 
 
 ## Prerequisites
 
-- Python 3.x
-- Pip (Python package installer)
+[![pypi badge](https://img.shields.io/pypi/v/langchain-chatchat.svg)](https://shields.io/)
+[![Generic badge](https://img.shields.io/badge/python-3.8%7C3.9%7C3.10%7C3.11-blue.svg)](https://pypi.org/project/pypiserver/)
 
 ## Package Dependencies
 
@@ -17,7 +18,7 @@ This project has a set of code examples of basic concepts of AI using the LangCh
 - Langchain Core
 - Langchain Google GenAI
 - Langchain Anthropic
-- Langchain Google Firestore
+- Langchain Google Firebase 
 - Langchain Community
 - ChromaDB
 - Tiktoken
